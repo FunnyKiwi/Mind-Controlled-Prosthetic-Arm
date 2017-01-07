@@ -1,0 +1,59 @@
+#include <Servo.h>
+
+int AnalogInput = A1;
+int GND = A0;
+int FiveVolts = A2;
+int AnalogValue = 0;
+int CalibrationThreshold;
+
+Servo thumb;
+Servo pointer;
+Servo middle;
+Servo ring;
+Servo pinky;
+
+void setup() 
+{
+  thumb.attach(11);
+  pointer.attach(10);
+  middle.attach(9);
+  ring.attach(6);
+  pinky.attach(5);
+
+  pinMode(GND, OUTPUT);
+  pinMode(FiveVolts, OUTPUT);
+  digitalWrite(GND, LOW);
+  digitalWrite(FiveVolts, HIGH);
+  
+  pinMode(13, OUTPUT);
+  digitalWrite(13, HIGH);
+  delay(2000);
+  CalibrationThreshold = analogRead(AnalogInput);
+  digitalWrite(13, LOW);
+  CalibrationThreshold = CalibrationThreshold + 15;
+  Serial.begin(9600);
+}
+
+void loop() 
+{
+  AnalogValue = analogRead(AnalogInput);
+  Serial.println(AnalogValue);
+  Serial.println(CalibrationThreshold);
+  if (AnalogValue < CalibrationThreshold)
+  {
+    pinky.write(180);
+    ring.write(180);
+    middle.write(180);
+    pointer.write(0);
+    thumb.write(180);
+  }
+  else
+  {
+    pinky.write(0);
+    ring.write(0);
+    middle.write(0);
+    pointer.write(180);
+    thumb.write(0);
+  }
+  
+}
