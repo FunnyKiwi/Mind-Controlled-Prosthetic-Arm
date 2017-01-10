@@ -1,3 +1,7 @@
+*/Mind Controlled Prosthetic Arm Open Source project 
+https://github.com/FunnyKiwi/Mind-Controlled-Prosthetic-Arm
+originally created by James Yim 2016
+/*
 int motorPos;
 int desiredPos;
 
